@@ -1,3 +1,4 @@
+Do not download the capture.pcap file, unless you can use wireshark.
 # Python-Password-Tester-Packet-Sniffing-and-Network-Traffic-Analysis
 These codes were made for my midterm project in cybersecurity showcasing password testing strength and packet sniffing and network traffic analysis using wireshark, vscode, and powershell.
 # For projectpt1.py, it's a python script that tests the strength of passwords entered by the user, it will then calculate a score based on length, use of lowercase/uppercase letters, digits, and special characters. It will then assign a strength depending on the password using the aforementioned variables.
