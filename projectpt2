@@ -1,0 +1,38 @@
+from scapy.all import sniff
+def packet_callback(packet):
+    print(packet.summary())
+
+sniff(prn=packet_callback, count=10)
+
+sniff(filter="tcp", prn=packet_callback, count=10)
+
+from scapy.all import IP, TCP
+def packet_callback(packet):
+    if packet.haslayer(IP):
+        ip_src = packet[IP].src
+        ip_dst = packet[IP].dst
+        print(f"IP Packet; {ip_src} -> {ip_dst}")
+
+sniff(filter="udp port 53", prn=lambda p: p.summary(), count=10)
+
+from scapy.all import sniff, wrpcap
+
+packets = sniff(filter="tcp", count=10)
+wrpcap("capture.pcap", packets)
+
+from scapy.all import sniff, wrpcap, IP, TCP
+
+def log_ip(packet):
+    if packet.haslayer(IP):
+        if packet.haslayer(IP):
+            print(f"IP Packet: {packet[IP].src} -> {packet[IP].dst}")
+
+def capture_and_save(filter_str, count, filename):
+    print(f"[*] Capturing {count} packets with filter: {filter_str}")
+    packets = sniff(filter=filter_str, prn=log_ip, count=count)
+    wrpcap(save_path, packets)
+    print(f"[+] Saved {count} packets to {filename}")
+
+if __name__ == "__main__":
+    capture_and_save("tcp", 20, "tcp_capture.pcap")
+    capture_and_save("udp port 53", 20, "dns_capture.pcap")
